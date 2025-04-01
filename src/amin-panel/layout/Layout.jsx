@@ -1,27 +1,27 @@
-import { useState } from "react";
-import Navbar from "./Navbar";
+import React, { useState } from "react";
 import Aside from "./Aside";
 
 const Layout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const [isSidebarOpen, setIsSiebarOpen] = useState(false);
 
   return (
-    <div className="flex">
-      {/* Sidebar (Hidden on Mobile) */}
-      <Aside isOpen={isSidebarOpen} />
-
-      <div className="flex flex-col w-full">
-        {/* Top Navbar */}
-        <Navbar toggleSidebar={toggleSidebar} />
-
-        {/* Page Content */}
-        <main className="p-4">Your Content Here</main>
-      </div>
-    </div>
+    <>
+      <Aside isSidebarOpen={isSidebarOpen} setIsSiebarOpen={setIsSiebarOpen} />
+      <main
+        className={`bg-amber-900 min-h-screen  ${
+          isSidebarOpen
+            ? "w-full ml-0"
+            : "md:w-[cal(100%-300px)] w-full md:ml-[300px] ml-0"
+        }`}
+      >
+        <button
+          className="bg-black text-white p-2"
+          onClick={() => setIsSiebarOpen(!isSidebarOpen)}
+        >
+          Toggle
+        </button>
+      </main>
+    </>
   );
 };
 
