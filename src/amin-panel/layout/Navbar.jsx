@@ -1,15 +1,14 @@
-import { Bell, Moon, Menu } from "lucide-react";
-
 const Navbar = ({ isSidebarOpen, setIsSiebarOpen }) => {
   return (
     <>
-      <nav className="bg-teal-300 p-3">
+      <nav className="bg-black p-3 flex justify-between">
         <button
-          className="bg-black text-white p-2 cursor-pointer"
+          className="bg-black text-white p-2"
           onClick={() => setIsSiebarOpen(!isSidebarOpen)}
         >
-          Toggler
+          Toggle
         </button>
+        <button className="bg-black text-white p-2">Logout</button>
       </nav>
     </>
   );
