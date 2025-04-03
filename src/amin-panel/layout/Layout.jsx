@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Aside from "./Aside";
 import Navbar from "./Navbar";
 import Categories from "../pages/Categories";
+import { Outlet } from "react-router";
 
 const Layout = () => {
   const [isSidebarOpen, setIsSiebarOpen] = useState(false);
@@ -20,7 +21,9 @@ const Layout = () => {
           isSidebarOpen={isSidebarOpen}
           setIsSiebarOpen={setIsSiebarOpen}
         />
-        <Categories />
+        <div>
+          <Outlet />
+        </div>
       </main>
     </>
   );

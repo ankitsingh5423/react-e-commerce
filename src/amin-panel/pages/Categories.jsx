@@ -3,7 +3,7 @@ import React from "react";
 const Categories = () => {
   return (
     <div className="overflow-x-auto bg-gray-900 text-white">
-      <div className="flex justify-between flex-wrap mx-5 py-4">
+      <div className="flex justify-between flex-wrap px-5 py-4">
         <div>
           <span>show</span>
           <select
@@ -23,11 +23,11 @@ const Categories = () => {
           </select>
           <span>entries</span>
         </div>
-        <div className="relative max-[1000px]:ml-9 ">
+        <div className="relative max-[1000px]:ml-9  max-[500px]:hidden">
           <input
             type="text"
             placeholder="search"
-            className="border-1 border-gray-400 py-2 pl-12 rounded-[5px] w-[400px]"
+            className="border-1 border-gray-400 py-2 pl-12 rounded-[5px]"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -46,9 +46,9 @@ const Categories = () => {
           </svg>
         </div>
       </div>
-      <table class="table-auto w-full text-center">
+      <table className="table-auto w-full text-center">
         <thead>
-          <tr className=" bg-gray-900 text-gray-300 uppercase font-normal">
+          <tr className=" bg-gray-800 text-gray-300 uppercase font-normal">
             <th className="py-2 px-4" scope="col">
               User
             </th>
