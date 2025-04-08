@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router";
 
 const UserRegister = () => {
+  const [username, setUsername] = useState("");
+  const [roll, setRoll] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [checked, setChecked] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "https://api.freeapi.app/api/v1/users/register",
+        {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ username, roll, email, password }),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        console.log("response successful");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    // console.log(e);
+  };
+
   return (
     <section className="w-full bg-gray-900">
       <div className="max-w-md mx-auto bg-gray-900 p-5">
@@ -83,7 +114,7 @@ const UserRegister = () => {
             </span>
           </div>
         </div>
-        <form action="">
+        <form action="" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div className="grid-cols-1 sm:col-span-1 text-white">
               <label
@@ -97,6 +128,8 @@ const UserRegister = () => {
                 type="text"
                 placeholder="Enter your fist name"
                 className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className="grid-cols-1 sm:col-span-1 text-white">
@@ -111,6 +144,8 @@ const UserRegister = () => {
                 type="text"
                 placeholder="Enter your last name"
                 className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
+                value={roll}
+                onChange={(e) => setRoll(e.target.value)}
               />
             </div>
             <div className="grid-cols-1 sm:col-span-2 text-white">
@@ -125,6 +160,8 @@ const UserRegister = () => {
                 type="text"
                 placeholder="Enter your email"
                 className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="grid-cols-1 sm:col-span-2 text-white">
@@ -139,26 +176,33 @@ const UserRegister = () => {
                 type="text"
                 placeholder="Enter your password"
                 className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="grid-cols-1 sm:col-span-2 flex">
               <input
                 type="checkbox"
                 className="w-[16px] h-[16px] border border-gray-400 mt-1"
+                value={checked}
+                onChange={(e) => setChecked(e.target.value)}
               />
               <span className="text-gray-400 ml-2">
-                By creating an account means you agree to the
+                <span> By creating an account means you agree to the </span>
                 <NavLink to="#" className="text-white">
                   terms and Conditions,
                 </NavLink>
-                and our
+                <span> and our </span>
                 <NavLink to="#" className="text-white">
                   Privacy Policy
                 </NavLink>
               </span>
             </div>
-            <div className="flex justify-center w-full grid-cols-1 sm:col-span-2 bg-blue-600 rounded-[8px]">
-              <button className="py-2.5 px-4 text-white font-bold cursor-pointer">
+            <div className="flex justify-center w-full grid-cols-1 sm:col-span-2 bg-blue-600 hover:bg-blue-700 rounded-[8px]">
+              <button
+                className="py-2.5 px-4 text-white font-bold cursor-pointer w-100"
+                type="submit"
+              >
                 Sign Up
               </button>
             </div>
