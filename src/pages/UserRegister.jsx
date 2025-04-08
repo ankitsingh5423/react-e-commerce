@@ -3,11 +3,25 @@ import { NavLink } from "react-router";
 
 const UserRegister = () => {
   return (
-    <section className="w-full bg-gray-900 h-lvh">
+    <section className="w-full bg-gray-900">
       <div className="max-w-md mx-auto bg-gray-900 p-5">
-        <div className="py-5">
-          <NavLink to="#" className="text-white">
-            Back to Dashborad
+        <div className="py-5 flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-chevron-left-icon lucide-chevron-left text-gray-400"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+          <NavLink to="#" className="text-gray-400">
+            <span>Back to Dashborad</span>
           </NavLink>
         </div>
         <div className="my-8">
@@ -64,7 +78,7 @@ const UserRegister = () => {
             <div className="w-full border-t border-gray-200 dark:border-gray-800"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span class="p-2 text-gray-400 bg-white dark:bg-gray-900 sm:px-5 sm:py-2">
+            <span className="p-2 text-gray-400 bg-white dark:bg-gray-900 sm:px-5 sm:py-2">
               Or
             </span>
           </div>
@@ -72,12 +86,81 @@ const UserRegister = () => {
         <form action="">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div className="grid-cols-1 sm:col-span-1 text-white">
-              <label htmlFor="name">First Name</label>
-              <input type="text" className="border-1 border-gray-400" />
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-400 mb-1.5"
+              >
+                First Name
+                <span className="text-red-600">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter your fist name"
+                className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
+              />
             </div>
             <div className="grid-cols-1 sm:col-span-1 text-white">
-              <label htmlFor="name">First Name</label>
-              <input type="text" className="border-1 border-gray-400" />
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-400 mb-1.5"
+              >
+                Last Name
+                <span className="text-red-600">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter your last name"
+                className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
+              />
+            </div>
+            <div className="grid-cols-1 sm:col-span-2 text-white">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-400 mb-1.5"
+              >
+                Email
+                <span className="text-red-600">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter your email"
+                className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
+              />
+            </div>
+            <div className="grid-cols-1 sm:col-span-2 text-white">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-400 mb-1.5"
+              >
+                Password
+                <span className="text-red-600">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter your password"
+                className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
+              />
+            </div>
+            <div className="grid-cols-1 sm:col-span-2 flex">
+              <input
+                type="checkbox"
+                className="w-[16px] h-[16px] border border-gray-400 mt-1"
+              />
+              <span className="text-gray-400 ml-2">
+                By creating an account means you agree to the
+                <NavLink to="#" className="text-white">
+                  terms and Conditions,
+                </NavLink>
+                and our
+                <NavLink to="#" className="text-white">
+                  Privacy Policy
+                </NavLink>
+              </span>
+            </div>
+            <div className="flex justify-center w-full grid-cols-1 sm:col-span-2 bg-blue-600 rounded-[8px]">
+              <button className="py-2.5 px-4 text-white font-bold cursor-pointer">
+                Sign Up
+              </button>
             </div>
           </div>
         </form>
