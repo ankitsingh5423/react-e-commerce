@@ -8,6 +8,8 @@ const UserRegister = () => {
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState("");
 
+  // console.log(roll)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -51,7 +53,7 @@ const UserRegister = () => {
           >
             <path d="m15 18-6-6 6-6" />
           </svg>
-          <NavLink to="#" className="text-gray-400">
+          <NavLink to="/" className="text-gray-400">
             <span>Back to Dashborad</span>
           </NavLink>
         </div>
@@ -121,7 +123,7 @@ const UserRegister = () => {
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-400 mb-1.5"
               >
-                First Name
+                User Name
                 <span className="text-red-600">*</span>
               </label>
               <input
@@ -129,6 +131,7 @@ const UserRegister = () => {
                 placeholder="Enter your fist name"
                 className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
                 value={username}
+                required
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
@@ -137,16 +140,23 @@ const UserRegister = () => {
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-400 mb-1.5"
               >
-                Last Name
+                Select Roll
                 <span className="text-red-600">*</span>
               </label>
-              <input
-                type="text"
-                placeholder="Enter your last name"
-                className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
-                value={roll}
-                onChange={(e) => setRoll(e.target.value)}
-              />
+              <select
+                name=""
+                id=""
+                className="border border-gray-400 py-2 px-4 w-full rounded-[5px] text-gray-400"
+                onChange={(e)=> setRoll(e.target.value)}
+                required
+              >
+                <option value="user" className="text-gray-600">
+                  User
+                </option>
+                <option value="admin" className="text-gray-600">
+                  Admin
+                </option>
+              </select>
             </div>
             <div className="grid-cols-1 sm:col-span-2 text-white">
               <label
@@ -160,6 +170,7 @@ const UserRegister = () => {
                 type="text"
                 placeholder="Enter your email"
                 className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -176,6 +187,7 @@ const UserRegister = () => {
                 type="text"
                 placeholder="Enter your password"
                 className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
+                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -184,6 +196,7 @@ const UserRegister = () => {
               <input
                 type="checkbox"
                 className="w-[16px] h-[16px] border border-gray-400 mt-1"
+                required
                 value={checked}
                 onChange={(e) => setChecked(e.target.value)}
               />

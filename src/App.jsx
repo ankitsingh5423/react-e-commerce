@@ -14,7 +14,7 @@ function App() {
           <Route path="/categories" element={<Categories />} />
           <Route path="*" element={<NotFound />} />
         </Route>
-          <Route path="/register" element={<UserRegister />} />
+        <Route path="/registration" element={<UserRegister />} />
       </Routes>
     </BrowserRouter>
   );

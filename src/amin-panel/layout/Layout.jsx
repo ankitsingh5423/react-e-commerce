@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Aside from "./Aside";
 import Navbar from "./Navbar";
-import Categories from "../pages/Categories";
 import { Outlet } from "react-router";
 
 const Layout = () => {
