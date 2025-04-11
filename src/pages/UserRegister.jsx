@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router";
+import { object, string, number, date, InferType } from "yup";
 
 const UserRegister = () => {
   const [username, setUsername] = useState("");
@@ -10,8 +11,25 @@ const UserRegister = () => {
 
   // console.log(roll)
 
+  let userSchema = object({
+    username: string().required(),
+    roll: string().required(),
+    email: string().email(),
+    password: string(),
+  });
+let user = await userSchema.validate(await fetchUser());
+
+    let User = InferType<typeof userSchema>;
+    {
+  name: string;
+  age: number;
+  email? : string | undefined
+  website?"": string | null | undefined
+  createdOn: Date
+}
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(user);
     try {
       const response = await fetch(
         "https://api.freeapi.app/api/v1/users/register",
@@ -147,7 +165,7 @@ const UserRegister = () => {
                 name=""
                 id=""
                 className="border border-gray-400 py-2 px-4 w-full rounded-[5px] text-gray-400"
-                onChange={(e)=> setRoll(e.target.value)}
+                onChange={(e) => setRoll(e.target.value)}
                 required
               >
                 <option value="user" className="text-gray-600">
