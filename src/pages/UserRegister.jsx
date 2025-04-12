@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router";
-import { object, string, number, date, InferType } from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 const UserRegister = () => {
   const [username, setUsername] = useState("");
@@ -9,27 +10,8 @@ const UserRegister = () => {
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState("");
 
-  // console.log(roll)
-
-  let userSchema = object({
-    username: string().required(),
-    roll: string().required(),
-    email: string().email(),
-    password: string(),
-  });
-let user = await userSchema.validate(await fetchUser());
-
-    let User = InferType<typeof userSchema>;
-    {
-  name: string;
-  age: number;
-  email? : string | undefined
-  website?"": string | null | undefined
-  createdOn: Date
-}
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
     try {
       const response = await fetch(
         "https://api.freeapi.app/api/v1/users/register",
