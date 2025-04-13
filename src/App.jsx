@@ -4,6 +4,7 @@ import Dashboard from "./amin-panel/pages/Dashboard";
 import Categories from "./amin-panel/pages/Categories";
 import NotFound from "./pages/NotFound";
 import UserRegister from "./pages/UserRegister";
+import Login from "./pages/Login"
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/registration" element={<UserRegister />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

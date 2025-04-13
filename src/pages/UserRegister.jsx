@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router";
+import { useNavigate } from "react-router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -9,9 +10,13 @@ const UserRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState("");
+  const [loading, setLoding] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoding(true);
     try {
       const response = await fetch(
         "https://api.freeapi.app/api/v1/users/register",
@@ -27,7 +32,7 @@ const UserRegister = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        console.log("response successful");
+        response.ok ? navigate("/login") : "Loading.....";
       }
     } catch (error) {
       console.log(error);
@@ -128,7 +133,7 @@ const UserRegister = () => {
               </label>
               <input
                 type="text"
-                placeholder="Enter your fist name"
+                placeholder="Enter your user name"
                 className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
                 value={username}
                 required
