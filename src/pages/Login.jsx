@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { NavLink } from "react-router";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import { OrbitProgress } from "react-loading-indicators";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -26,10 +28,13 @@ const Login = () => {
       const data = await response.json();
       if (data.statusCode == 200) {
         navigate("/");
+        toast.success("login successful");
+      } else {
+        toast.error(data.message);
       }
       console.log(data);
     } catch (error) {
-      console.error(error);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -37,6 +42,19 @@ const Login = () => {
 
   return (
     <section className="w-full bg-gray-900 h-lvh">
+      {loading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+          <div className="text-white text-lg font-bold">
+            <OrbitProgress
+              variant="spokes"
+              color="#fff"
+              size="medium"
+              text=""
+              textColor="#fff"
+            />
+          </div>
+        </div>
+      )}
       <div className="max-w-md mx-auto bg-gray-900 p-5 h-lvh">
         <div className="py-5 flex">
           <svg
@@ -144,7 +162,7 @@ const Login = () => {
                 <span className="text-red-600">*</span>
               </label>
               <input
-                type="text"
+                type="password"
                 placeholder="Enter your password"
                 className="border-1 border-gray-400 mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 py-2.5 px-4 rounded-[5px] w-full"
                 required
@@ -162,7 +180,7 @@ const Login = () => {
             </div>
             <div className="flex justify-center w-full grid-cols-1 sm:col-span-2 bg-blue-600 hover:bg-blue-700 rounded-[8px]">
               <button
-                className="py-2.5 px-4 text-white font-bold cursor-pointer w-100" 
+                className="py-2.5 px-4 text-white font-bold cursor-pointer w-100"
                 type="submit"
               >
                 {loading ? "sign In...." : "Sing In"}

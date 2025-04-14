@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router";
 import { useNavigate } from "react-router";
+import { OrbitProgress } from "react-loading-indicators";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 
 const UserRegister = () => {
   const [username, setUsername] = useState("");
@@ -11,7 +13,6 @@ const UserRegister = () => {
   const [password, setPassword] = useState("");
   const [checked, setChecked] = useState("");
   const [loading, setLoding] = useState(false);
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -33,15 +34,33 @@ const UserRegister = () => {
       console.log(data);
       if (response.ok) {
         response.ok ? navigate("/login") : "Loading.....";
+        toast.success("Signup successfully");
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
+    } finally {
+      setLoding(false);
     }
-    // console.log(e);
   };
 
   return (
-    <section className="w-full bg-gray-900">
+    <section className="w-full bg-gray-900 relative">
+      {loading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+          <div className="text-white text-lg font-bold">
+            <OrbitProgress
+              variant="spokes"
+              color="#fff"
+              size="medium"
+              text=""
+              textColor="#fff"
+            />
+          </div>
+        </div>
+      )}
       <div className="max-w-md mx-auto bg-gray-900 p-5">
         <div className="py-5 flex">
           <svg
@@ -221,7 +240,7 @@ const UserRegister = () => {
                 className="py-2.5 px-4 text-white font-bold cursor-pointer w-100"
                 type="submit"
               >
-                Sign Up
+                {loading ? "Signing...." : "Sing Up"}
               </button>
             </div>
           </div>
