@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
-import { fetchCategoriesApi } from "../services/authService";
+import { fetchCategoriesApi, deletecategoryApi } from "../services/authService";
 import { useAuth } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Categories = () => {
   const { accessToken } = useAuth();
@@ -9,6 +10,18 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [pages, setPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const handelDelete = async (categoryId) => {
+    try {
+      await deletecategoryApi(accessToken, categoryId);
+      toast.success("category delete successfully");
+      const data = await fetchCategoriesApi(accessToken, currentPage);
+      setCategories(data.data.categories);
+      setPages(data.data.totalPages);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   useEffect(() => {
     // Fetch Categories
@@ -26,7 +39,7 @@ const Categories = () => {
   for (let i = 1; i <= pages; i++) {
     pagesEl.push(
       <div
-        className={`border p-2 cursor-pointer ${
+        className={`border px-2 cursor-pointer ${
           i === currentPage ? "bg-amber-400" : ""
         }`}
         onClick={(e) => {
@@ -106,21 +119,23 @@ const Categories = () => {
             <tr className=" border-b-gray-400 border-b-1 bg-gray-700 hover:bg-gray-600 text-gray-300">
               <td className="py-3 px-4">{category?.name ?? "--"}</td>
               <td className="py-3 px-4 flex justify-center gap-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-pencil-icon lucide-pencil border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer"
-                >
-                  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
-                  <path d="m15 5 4 4" />
-                </svg>
+                <NavLink to={`/editCategory/${category._id}`}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-pencil-icon lucide-pencil border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer"
+                  >
+                    <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+                    <path d="m15 5 4 4" />
+                  </svg>
+                </NavLink>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -132,6 +147,7 @@ const Categories = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="lucide lucide-trash-icon lucide-trash border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer"
+                  onClick={() => handelDelete(category._id)}
                 >
                   <path d="M3 6h18" />
                   <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
@@ -142,7 +158,7 @@ const Categories = () => {
           ))}
         </tbody>
       </table>
-      <div className="flex justify-end bg-gray-800 pr-5 gap-x-3">{pagesEl}</div>
+      <div className="flex justify-end bg-gray-800 pr-5 gap-x-1 py-3">{pagesEl}</div>
     </div>
   );
 };

@@ -50,3 +50,30 @@ export const saveCategoryApi = async (data, accessToken) => {
     throw error;
   }
 };
+
+export const deletecategoryApi = async (accessToken, categoryId, data) => {
+  try {
+    const url = `https://api.freeapi.app/api/v1/ecommerce/categories/${categoryId}`;
+    return runApi(url, data, { method: "DELETE", token: accessToken });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getCategoryIdApi = async (categoryId, accessToken) => {
+  try {
+    const url = `https://api.freeapi.app/api/v1/ecommerce/categories/${categoryId}`;
+    return runApi(url, null, { method: "GET", token: accessToken });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateCategoryApi = async (accessToken, categoryId, body) => {
+  try {
+    const url = `https://api.freeapi.app/api/v1/ecommerce/categories/${categoryId}`;
+    return runApi(url, body, { method: "PATCH", token: accessToken });
+  } catch (error) {
+    throw error;
+  }
+};

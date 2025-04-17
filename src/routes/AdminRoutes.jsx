@@ -8,6 +8,7 @@ import Login from "../admin-panel/pages/Login";
 import ProtectedRoutes from "./ProtectedRoutes";
 import AddCategory from "../admin-panel/pages/AddCategory";
 import GuestRoutes from "./GuestRoutes";
+import EditCategory from "../admin-panel/pages/EditCategory";
 
 const AdminRoutes = [
   <Route key="guestRoutes" element={<GuestRoutes />}>
@@ -20,6 +21,7 @@ const AdminRoutes = [
       <Route index element={<Dashboard />} />
       <Route path="/categories" element={<Categories />} />
       <Route path="/add-category" element={<AddCategory />} />
+      <Route path="/editCategory/:categoryId" element={<EditCategory />} />
       <Route path="*" element={<NotFound />} />
     </Route>
     ,
