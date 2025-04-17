@@ -4,35 +4,27 @@ import { NavLink } from "react-router";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { OrbitProgress } from "react-loading-indicators";
-import { login } from "../services/authService";
+import { loginApi } from "../services/authService";
 import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const { setIsLoggedIn, setAccessToken } = useAuth();
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
-      const data = await login(username, password);
-      console.log(data);
-      if (data.statusCode == 200) {
-        const accessToken = data.data.accessToken;
-        const refreshToken = data.data.refreshToken;
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-        setAccessToken(accessToken);
-        setIsLoggedIn(true);
-        navigate("/");
-        toast.success("login successful");
-      } else {
-        toast.error(data.message);
-      }
-      console.log(data);
+      const { data } = await loginApi(username, password);
+
+      login(data?.accessToken, data?.refreshToken);
+
+      navigate("/");
+      toast.success("login successful");
     } catch (error) {
       toast.error(error.message);
     } finally {

@@ -1,4 +1,18 @@
+import { useNavigate } from "react-router";
+import { useAuth } from "../../context/AuthContext";
+import { toast } from "react-toastify";
+
 const Navbar = ({ isSidebarOpen, setIsSiebarOpen }) => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+
+    navigate("/login");
+    toast.success("Logout successfully.");
+  };
+
   return (
     <>
       <nav className="bg-gray-900 p-3 flex justify-between items-center">
@@ -30,6 +44,7 @@ const Navbar = ({ isSidebarOpen, setIsSiebarOpen }) => {
           strokeLinecap="round"
           strokeLinejoin="round"
           className="lucide lucide-log-out-icon lucide-log-out cursor-pointer border-1 border-gray-600 p-1"
+          onClick={handleLogout}
         >
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
           <polyline points="16 17 21 12 16 7" />

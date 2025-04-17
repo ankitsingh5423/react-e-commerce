@@ -1,59 +1,52 @@
-export const login = async (username, password) => {
+import { runApi } from "../../utils/apiRequest";
+
+export const loginApi = async (username, password) => {
   try {
     const url = "https://api.freeapi.app/api/v1/users/login";
-    const options = {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    };
-    const response = await fetch(url, options);
-    const data = await response.json();
-
-    return data;
+    return runApi(url, { username, password }, { method: "POST" });
   } catch (error) {
     throw error;
   }
 };
 
-export const loggedInUser = async (accessToken) => {
+export const loggedInUserApi = async (accessToken) => {
   const url = "https://api.freeapi.app/api/v1/ecommerce/profile";
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
 
   try {
-    const response = await fetch(url, options);
-    const data = await response.json();
-
-    return data;
+    return runApi(url, null, { method: "GET", token: accessToken });
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
-const refreshToken = async () => {
+
+export const refreshTokenApi = async () => {
   const refreshToken = localStorage.getItem("refreshToken");
   const url = "https://api.freeapi.app/api/v1/users/refresh-token";
-  const options = {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-    },
-    credentials: "include",
-  };
 
   try {
-    const response = await fetch(url, options);
-    const data = await response.json();
-    console.log("***", data);
+    return runApi(url, { refreshToken }, { method: "POST" });
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const fetchCategoriesApi = async (accessToken, page) => {
+  try {
+    const url = `https://api.freeapi.app/api/v1/ecommerce/categories?page=${page}&limit=5`;
+
+    return runApi(url, null, { method: "GET", token: accessToken });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const saveCategoryApi = async (data, accessToken) => {
+  try {
+    const url = "https://api.freeapi.app/api/v1/ecommerce/categories";
+
+    return runApi(url, data, { method: "POST", token: accessToken });
+  } catch (error) {
+    throw error;
   }
 };

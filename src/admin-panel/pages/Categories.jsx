@@ -1,6 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router";
+import { fetchCategoriesApi } from "../services/authService";
+import { useAuth } from "../../context/AuthContext";
 
 const Categories = () => {
+  const { accessToken } = useAuth();
+
+  const [categories, setCategories] = useState([]);
+  const [pages, setPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    // Fetch Categories
+    const fetchCategories = async () => {
+      const data = await fetchCategoriesApi(accessToken, currentPage);
+
+      setCategories(data.data.categories);
+      setPages(data.data.totalPages);
+    };
+
+    fetchCategories();
+  }, [currentPage]);
+
+  const pagesEl = [];
+  for (let i = 1; i <= pages; i++) {
+    pagesEl.push(
+      <div
+        className={`border p-2 cursor-pointer ${
+          i === currentPage ? "bg-amber-400" : ""
+        }`}
+        onClick={(e) => {
+          setCurrentPage(i);
+        }}
+      >
+        {i}
+      </div>
+    );
+  }
   return (
     <div className="overflow-x-auto bg-gray-900 text-white">
       <div className="flex justify-between flex-wrap px-5 py-4">
@@ -46,52 +82,67 @@ const Categories = () => {
           </svg>
         </div>
       </div>
+      <div className="flex justify-end py-3 px-4">
+        <NavLink
+          to="/add-category"
+          className="bg-green-600 py-1 px-4 rounded-[5px] text-white cursor-pointer"
+        >
+          Add
+        </NavLink>
+      </div>
       <table className="table-auto w-full text-center">
         <thead>
           <tr className=" bg-gray-800 text-gray-300 uppercase font-normal">
             <th className="py-2 px-4" scope="col">
-              User
+              Categories
             </th>
             <th className="py-2 px-4" scope="col">
-              Name
-            </th>
-            <th className="py-2 px-4" scope="col">
-              Role
-            </th>
-            <th className="py-2 px-4" scope="col">
-              Email
-            </th>
-            <th className="py-2 px-4" scope="col">
-              Password
-            </th>
-            <th className="py-2 px-4" scope="col">
-              Edit
-            </th>
-            <th className="py-2 px-4" scope="col">
-              Delete
+              Actions
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr className=" border-b-gray-400 border-b-1 bg-gray-700 hover:bg-gray-600 text-gray-300">
-            <td className="py-3 px-4">1</td>
-            <td className="py-3 px-4">Ankit</td>
-            <td className="py-3 px-4">Admin</td>
-            <td className="py-3 px-4">ankit723@gmail.com</td>
-            <td className="py-3 px-4">ankit8368</td>
-            <td className="py-3 px-4">
-              <button className=" bg-green-400 py-1 px-4 rounded-[5px] text-white">
-                Edit
-              </button>
-            </td>
-            <td className="py-3 px-4">
-              <button className="bg-red-600 py-1 px-4 rounded-[5px] text-white">
-                Delete
-              </button>
-            </td>
-          </tr>
+          {categories.map((category) => (
+            <tr className=" border-b-gray-400 border-b-1 bg-gray-700 hover:bg-gray-600 text-gray-300">
+              <td className="py-3 px-4">{category?.name ?? "--"}</td>
+              <td className="py-3 px-4 flex justify-center gap-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-pencil-icon lucide-pencil border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer"
+                >
+                  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+                  <path d="m15 5 4 4" />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-trash-icon lucide-trash border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer"
+                >
+                  <path d="M3 6h18" />
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                </svg>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
+      <div className="flex justify-end bg-gray-800 pr-5 gap-x-3">{pagesEl}</div>
     </div>
   );
 };
