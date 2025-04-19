@@ -2,6 +2,7 @@ export const runApi = async (url, data, options) => {
   try {
     const payload = {
       method: options?.method ?? "GET",
+
       headers: {
         accept: "application/json",
         "content-type": "application/json",
@@ -24,4 +25,3 @@ export const runApi = async (url, data, options) => {
     throw error;
   }
 };
-

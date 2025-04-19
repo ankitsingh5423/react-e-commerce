@@ -77,3 +77,10 @@ export const updateCategoryApi = async (accessToken, categoryId, body) => {
     throw error;
   }
 };
+
+export default fectchProductsApi = async (accessToken) => {
+  try {
+    const url = `https://api.freeapi.app/api/v1/ecommerce/products?page=1&limit=10`;
+    return runApi(url, null, { method: "GET", token: accessToken });
+  } catch (error) {}
+};

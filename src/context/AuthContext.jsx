@@ -44,6 +44,10 @@ export const AuthProvider = ({ children }) => {
         if (data?.statusCode === 401) {
           const newTokens = await refreshTokenApi();
 
+          if (!newTokens?.success) {
+            return logout();
+          }
+
           login(newTokens.data.accessToken, newTokens.data.refreshToken);
         }
         setUser(data.data);

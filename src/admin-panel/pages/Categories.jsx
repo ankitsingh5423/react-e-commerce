@@ -37,9 +37,24 @@ const Categories = () => {
 
   const pagesEl = [];
   for (let i = 1; i <= pages; i++) {
+    if (i === 3) {
+      pagesEl.push(
+        <div
+          key={i}
+          className={`border px-2 cursor-pointer py-1 ${
+            i === currentPage ? "bg-amber-400" : ""
+          }`}
+        >
+          ....
+        </div>
+      );
+      continue;
+    }
+
     pagesEl.push(
       <div
-        className={`border px-2 cursor-pointer ${
+        key={i}
+        className={`border px-2 cursor-pointer py-1 ${
           i === currentPage ? "bg-amber-400" : ""
         }`}
         onClick={(e) => {
@@ -50,6 +65,23 @@ const Categories = () => {
       </div>
     );
   }
+  const nextpage = (e) => {
+    if (pages !== currentPage) {
+      let i = currentPage;
+      let test = i + 1;
+      setCurrentPage(test);
+    }
+  };
+  const prevPage = (e) => {
+    if (currentPage !== 1) {
+      let i = currentPage;
+      let test = i - 1;
+      setCurrentPage(test);
+    }
+  };
+  console.log("current page ....", currentPage);
+  console.log(" page ....", pages);
+
   return (
     <div className="overflow-x-auto bg-gray-900 text-white">
       <div className="flex justify-between flex-wrap px-5 py-4">
@@ -116,7 +148,10 @@ const Categories = () => {
         </thead>
         <tbody>
           {categories.map((category) => (
-            <tr className=" border-b-gray-400 border-b-1 bg-gray-700 hover:bg-gray-600 text-gray-300">
+            <tr
+              className=" border-b-gray-400 border-b-1 bg-gray-700 hover:bg-gray-600 text-gray-300"
+              key={category._id}
+            >
               <td className="py-3 px-4">{category?.name ?? "--"}</td>
               <td className="py-3 px-4 flex justify-center gap-3">
                 <NavLink to={`/editCategory/${category._id}`}>
@@ -158,7 +193,21 @@ const Categories = () => {
           ))}
         </tbody>
       </table>
-      <div className="flex justify-end bg-gray-800 pr-5 gap-x-1 py-3">{pagesEl}</div>
+      <div className="flex justify-end bg-gray-800 pr-5 gap-x-0 py-3">
+        <span
+          className="border px-2 cursor-pointer rounded-tl-[5px] rounded-bl-[5px] py-1"
+          onClick={prevPage}
+        >
+          previous
+        </span>
+        {pagesEl}
+        <span
+          className="border px-2 cursor-pointer rounded-tr-[5px] rounded-br-[5px] py-1"
+          onClick={nextpage}
+        >
+          Next
+        </span>
+      </div>
     </div>
   );
 };

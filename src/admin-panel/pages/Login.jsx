@@ -19,9 +19,16 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const { data } = await loginApi(username, password);
+      const data = await loginApi(username, password);
 
-      login(data?.accessToken, data?.refreshToken);
+      if (!data?.success) {
+        toast.error(data?.message ?? "Something went wrong.");
+        setUsername("");
+        setPassword("");
+        return;
+      }
+
+      login(data?.data?.accessToken, data?.data?.refreshToken);
 
       navigate("/");
       toast.success("login successful");
