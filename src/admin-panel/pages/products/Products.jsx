@@ -1,9 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
+import { useAuth } from "../../../context/AuthContext";
+import { fetchProductsApi } from "../../services/authService";
+import { OrbitProgress } from "react-loading-indicators";
 
 const Products = () => {
+  const { accessToken } = useAuth();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchProductsApi(accessToken);
+        console.log(data.data.products);
+        setProducts(data.data.products);
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
   return (
     <div className="overflow-x-auto bg-gray-900 text-white">
+      {loading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50">
+          <div className="text-white text-lg font-bold">
+            <OrbitProgress
+              variant="spokes"
+              color="#fff"
+              size="medium"
+              text=""
+              textColor="#fff"
+            />
+          </div>
+        </div>
+      )}
       <div className="flex justify-between flex-wrap px-5 py-4">
         <div>
           <span>show</span>
@@ -49,7 +85,7 @@ const Products = () => {
       </div>
       <div className="flex justify-end py-3 px-4">
         <NavLink
-          to="/add-category"
+          to="#"
           className="bg-green-600 py-1 px-4 rounded-[5px] text-white cursor-pointer"
         >
           Add
@@ -57,7 +93,7 @@ const Products = () => {
       </div>
       <table className="table-auto w-full text-center">
         <thead>
-          <tr className=" bg-gray-800 text-gray-300 uppercase font-normal">
+          <tr className=" bg-gray-800 text-gray-300 capitalize font-normal">
             <th className="py-2 px-4" scope="col">
               Products
             </th>
@@ -79,25 +115,60 @@ const Products = () => {
           </tr>
         </thead>
         <tbody>
-          <tr className=" border-b-gray-400 border-b-1 bg-gray-700 hover:bg-gray-600 text-gray-300">
-            <td className="py-3 px-4">
-              <tr className="gap-5 flex align-middle items-center">
-                <td>
+          {products.map((product) => (
+            <tr
+              className=" border-b-gray-400 border-b-1 bg-gray-700 hover:bg-gray-600 text-gray-300"
+              key={product._id}
+            >
+              <td className="py-3 px-4 flex items-center gap-5">
+                <span>
                   <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm2-IiCQnnEHH1dk5HN2K60xrv8Wyu8VRW7Q&s"
-                    alt=""
+                    src={product.mainImage.url}
+                    alt="product-image"
                     className="w-[50px] object-cover"
                   />
-                </td>
-                <td>ankit</td>
-              </tr>
-            </td>
-            <td className="py-3 px-4">$8768</td>
-            <td className="py-3 px-4">765</td>
-            <td className="py-3 px-4">02-04-2025</td>
-            <td className="py-3 px-4">023-04-2025</td>
-            <td className="py-3 px-4 flex justify-center gap-3">
-              <NavLink to={`/editCategory`}>
+                </span>
+                <span>{product.name}</span>
+              </td>
+              <td className="py-3 px-4">${product.price}</td>
+              <td className="py-3 px-4">{product.stock}</td>
+              <td className="py-3 px-4">{product.createdAt}</td>
+              <td className="py-3 px-4">{product.updatedAt}</td>
+              <td className="py-3 px-4 flex justify-center gap-3">
+                <NavLink to={`/editCategory`}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-eye-icon lucide-eye border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer bg-gray-700"
+                  >
+                    <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                </NavLink>
+                <NavLink to={`/editCategory`}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-pencil-icon lucide-pencil border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer text-green-600 bg-gray-700"
+                  >
+                    <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+                    <path d="m15 5 4 4" />
+                  </svg>
+                </NavLink>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -108,47 +179,15 @@ const Products = () => {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="lucide lucide-eye-icon lucide-eye border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer bg-gray-700"
+                  className="lucide lucide-trash-icon lucide-trash border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer text-orange-500 bg-gray-700"
                 >
-                  <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
-                  <circle cx="12" cy="12" r="3" />
+                  <path d="M3 6h18" />
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
                 </svg>
-              </NavLink>
-              <NavLink to={`/editCategory`}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-pencil-icon lucide-pencil border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer text-green-600 bg-gray-700"
-                >
-                  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
-                  <path d="m15 5 4 4" />
-                </svg>
-              </NavLink>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-trash-icon lucide-trash border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer text-orange-500 bg-gray-700"
-              >
-                <path d="M3 6h18" />
-                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-              </svg>
-            </td>
-          </tr>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <div className="flex justify-end bg-gray-800 pr-5 gap-x-0 py-3">

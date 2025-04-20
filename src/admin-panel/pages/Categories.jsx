@@ -3,6 +3,7 @@ import { NavLink } from "react-router";
 import { fetchCategoriesApi, deletecategoryApi } from "../services/authService";
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import { OrbitProgress } from "react-loading-indicators";
 
 const Categories = () => {
   const { accessToken } = useAuth();
@@ -10,6 +11,7 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [pages, setPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const handelDelete = async (categoryId) => {
     try {
@@ -20,16 +22,24 @@ const Categories = () => {
       setPages(data.data.totalPages);
     } catch (error) {
       toast.error(error.message);
+    } finally {
     }
   };
 
   useEffect(() => {
     // Fetch Categories
     const fetchCategories = async () => {
-      const data = await fetchCategoriesApi(accessToken, currentPage);
+      setLoading(true);
+      try {
+        const data = await fetchCategoriesApi(accessToken, currentPage);
 
-      setCategories(data.data.categories);
-      setPages(data.data.totalPages);
+        setCategories(data.data.categories);
+        setPages(data.data.totalPages);
+      } catch (error) {
+        toast.error(error.message ?? "somthing went wrong");
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchCategories();
@@ -79,11 +89,22 @@ const Categories = () => {
       setCurrentPage(test);
     }
   };
-  console.log("current page ....", currentPage);
-  console.log(" page ....", pages);
 
   return (
-    <div className="overflow-x-auto bg-gray-900 text-white">
+    <div className="overflow-x-auto bg-gray-900 text-white h-lvh">
+      {loading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50">
+          <div className="text-white text-lg font-bold">
+            <OrbitProgress
+              variant="spokes"
+              color="#fff"
+              size="medium"
+              text=""
+              textColor="#fff"
+            />
+          </div>
+        </div>
+      )}
       <div className="flex justify-between flex-wrap px-5 py-4">
         <div>
           <span>show</span>
@@ -137,9 +158,15 @@ const Categories = () => {
       </div>
       <table className="table-auto w-full text-center">
         <thead>
-          <tr className=" bg-gray-800 text-gray-300 uppercase font-normal">
+          <tr className=" bg-gray-800 text-gray-300 capitalize font-normal">
             <th className="py-2 px-4" scope="col">
               Categories
+            </th>
+            <th className="py-2 px-4" scope="col">
+              createdAt
+            </th>
+            <th className="py-2 px-4" scope="col">
+              updatedAt
             </th>
             <th className="py-2 px-4" scope="col">
               Actions
@@ -153,6 +180,8 @@ const Categories = () => {
               key={category._id}
             >
               <td className="py-3 px-4">{category?.name ?? "--"}</td>
+              <td className="py-3 px-4">{category?.createdAt ?? "--"}</td>
+              <td className="py-3 px-4">{category?.updatedAt ?? "--"}</td>
               <td className="py-3 px-4 flex justify-center gap-3">
                 <NavLink to={`/editCategory/${category._id}`}>
                   <svg
@@ -165,7 +194,7 @@ const Categories = () => {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="lucide lucide-pencil-icon lucide-pencil border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer"
+                    className="lucide lucide-pencil-icon lucide-pencil border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer text-green-600"
                   >
                     <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
                     <path d="m15 5 4 4" />
@@ -181,7 +210,7 @@ const Categories = () => {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="lucide lucide-trash-icon lucide-trash border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer"
+                  className="lucide lucide-trash-icon lucide-trash border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer text-orange-500"
                   onClick={() => handelDelete(category._id)}
                 >
                   <path d="M3 6h18" />
