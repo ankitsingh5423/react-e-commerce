@@ -29,7 +29,7 @@ const Login = () => {
       }
 
       login(data?.data?.accessToken, data?.data?.refreshToken);
-
+      localStorage.setItem('isAuth',true)
       navigate("/");
       toast.success("login successful");
     } catch (error) {

@@ -14,7 +14,6 @@ const Products = () => {
       setLoading(true);
       try {
         const data = await fetchProductsApi(accessToken);
-        console.log(data.data.products);
         setProducts(data.data.products);
       } catch (error) {
         console.log(error.message);
@@ -85,7 +84,7 @@ const Products = () => {
       </div>
       <div className="flex justify-end py-3 px-4">
         <NavLink
-          to="#"
+          to="/add-product"
           className="bg-green-600 py-1 px-4 rounded-[5px] text-white cursor-pointer"
         >
           Add
@@ -135,7 +134,7 @@ const Products = () => {
               <td className="py-3 px-4">{product.createdAt}</td>
               <td className="py-3 px-4">{product.updatedAt}</td>
               <td className="py-3 px-4 flex justify-center gap-3">
-                <NavLink to={`/editCategory`}>
+                <NavLink to={`/view-products`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -152,7 +151,7 @@ const Products = () => {
                     <circle cx="12" cy="12" r="3" />
                   </svg>
                 </NavLink>
-                <NavLink to={`/editCategory`}>
+                <NavLink to={`/edit-product`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

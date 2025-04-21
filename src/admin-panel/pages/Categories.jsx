@@ -183,7 +183,7 @@ const Categories = () => {
               <td className="py-3 px-4">{category?.createdAt ?? "--"}</td>
               <td className="py-3 px-4">{category?.updatedAt ?? "--"}</td>
               <td className="py-3 px-4 flex justify-center gap-3">
-                <NavLink to={`/editCategory/${category._id}`}>
+                <NavLink to={`/edit-category/${category._id}`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

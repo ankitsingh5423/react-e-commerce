@@ -4,7 +4,8 @@ import { Outlet, Navigate } from "react-router";
 
 const ProtectedRoutes = () => {
   const { user, loading } = useAuth();
-  const isLoggedIn = user?._id ? true : false;
+  const isAuth = localStorage.getItem("isAuth");
+  const isLoggedIn = isAuth;
 
   if (loading)
     return (

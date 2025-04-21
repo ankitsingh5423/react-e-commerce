@@ -2,7 +2,8 @@ import { Navigate, Outlet } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
 const GuestRoutes = () => {
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
+  const user = localStorage.getItem("isAuth");
 
   if (loading)
     return (
@@ -10,7 +11,7 @@ const GuestRoutes = () => {
         Loading....
       </p>
     );
-  return user ? <Navigate to="/" replace /> : <Outlet />;
+  return <Outlet />;
 };
 
 export default GuestRoutes;

@@ -83,6 +83,19 @@ export const fetchProductsApi = async (accessToken) => {
     const url = `https://api.freeapi.app/api/v1/ecommerce/products?page=1&limit=10`;
     return runApi(url, null, { method: "GET", token: accessToken });
   } catch (error) {
-    throw error
+    throw error;
+  }
+};
+
+export const addProductApi = async (accessToken) => {
+  try {
+    const url = "https://api.freeapi.app/api/v1/ecommerce/products";
+    return runApi(url, null, {
+      method: "POST",
+      token: accessToken,
+      "content-type": "multipart/form-data",
+    });
+  } catch (error) {
+    throw error;
   }
 };
