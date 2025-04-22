@@ -87,14 +87,26 @@ export const fetchProductsApi = async (accessToken) => {
   }
 };
 
-export const addProductApi = async (accessToken) => {
+export const addProductApi = async (accessToken, data) => {
   try {
     const url = "https://api.freeapi.app/api/v1/ecommerce/products";
-    return runApi(url, null, {
+    return runApi(url, data, {
       method: "POST",
       token: accessToken,
-      "content-type": "multipart/form-data",
+      headers: {
+        type: "formData",
+      },
     });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const deleteProductApi = async (accessToken, productId, data) => {
+  try {
+    const url = `https://api.freeapi.app/api/v1/ecommerce/products/${productId}`;
+    return runApi(url, data, { method: "DELETE", token: accessToken });
   } catch (error) {
     throw error;
   }

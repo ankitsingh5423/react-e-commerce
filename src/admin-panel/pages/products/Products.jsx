@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { useAuth } from "../../../context/AuthContext";
-import { fetchProductsApi } from "../../services/authService";
+import { fetchProductsApi, deleteProductApi } from "../../services/authService";
 import { OrbitProgress } from "react-loading-indicators";
+import { toast } from "react-toastify";
 
 const Products = () => {
   const { accessToken } = useAuth();
@@ -23,6 +24,22 @@ const Products = () => {
     };
     fetchProducts();
   }, []);
+
+  const handleDelete = async (productId) => {
+    try {
+      const data = await deleteProductApi(accessToken, productId);
+
+      if (data.success) {
+        toast.success("product delete sucessful");
+        const data = await fetchProductsApi(accessToken);
+        setProducts(data.data.products);
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error.message);
+    }
+  };
+  console.log("products.....", products);
 
   return (
     <div className="overflow-x-auto bg-gray-900 text-white">
@@ -179,6 +196,7 @@ const Products = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="lucide lucide-trash-icon lucide-trash border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer text-orange-500 bg-gray-700"
+                  onClick={() => handleDelete(product._id)}
                 >
                   <path d="M3 6h18" />
                   <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />

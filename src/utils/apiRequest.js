@@ -1,17 +1,26 @@
 export const runApi = async (url, data, options) => {
   try {
+    console.log(data);
     const payload = {
       method: options?.method ?? "GET",
 
       headers: {
         accept: "application/json",
-        "content-type": "application/json",
+        "Content-type": "application/json",
         ...options?.headers,
       },
     };
 
     if (payload.method !== "GET") {
-      payload.body = JSON.stringify(data);
+      if (options?.headers?.type === "formData") {
+        payload.body = data;
+
+        console.log(payload);
+        payload.headers.redirect = "follow";
+        delete payload?.headers?.["Content-type"];
+      } else {
+        payload.body = JSON.stringify(data);
+      }
     }
 
     if (options?.token) {
