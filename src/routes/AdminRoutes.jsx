@@ -11,6 +11,7 @@ import GuestRoutes from "./GuestRoutes";
 import EditCategory from "../admin-panel/pages/EditCategory";
 import Products from "../admin-panel/pages/products/Products";
 import AddProduct from "../admin-panel/pages/products/AddProduct";
+import Frontend from "../pages/Frontend";
 
 const AdminRoutes = [
   <Route key="guestRoutes" element={<GuestRoutes />}>
@@ -28,7 +29,6 @@ const AdminRoutes = [
       <Route path="/add-product" element={<AddProduct />} />
       <Route path="*" element={<NotFound />} />
     </Route>
-    ,
   </Route>,
 ];
 

@@ -37,6 +37,7 @@ const AddProduct = () => {
       const data = await addProductApi(accessToken, formdata);
       console.log(data);
       if (data.data.statusCode == 200) {
+        
         navigate("/products");
         toast.success("product add successfully");
       }

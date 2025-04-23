@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { OrbitProgress } from "react-loading-indicators";
 import { loginApi } from "../services/authService";
 import { useAuth } from "../../context/AuthContext";
+import "../../index.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -29,7 +30,7 @@ const Login = () => {
       }
 
       login(data?.data?.accessToken, data?.data?.refreshToken);
-      localStorage.setItem('isAuth',true)
+      localStorage.setItem("isAuth", true);
       navigate("/");
       toast.success("login successful");
     } catch (error) {

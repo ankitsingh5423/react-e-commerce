@@ -8,14 +8,18 @@ import { toast } from "react-toastify";
 const Products = () => {
   const { accessToken } = useAuth();
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const data = await fetchProductsApi(accessToken);
+        const data = await fetchProductsApi(accessToken, currentPage);
         setProducts(data.data.products);
+        setTotalPages(data.data.totalPages);
+        console.log(currentPage);
       } catch (error) {
         console.log(error.message);
       } finally {
@@ -23,7 +27,7 @@ const Products = () => {
       }
     };
     fetchProducts();
-  }, []);
+  }, [currentPage]);
 
   const handleDelete = async (productId) => {
     try {
@@ -39,7 +43,18 @@ const Products = () => {
       console.log(error.message);
     }
   };
-  console.log("products.....", products);
+  const pageEl = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    pageEl.push(<div className={`border px-2 cursor-pointer py-1 `}>{i}</div>);
+  }
+
+  const nextPage = async () => {
+    if (totalPages !== currentPage) {
+      setCurrentPage(currentPage + 1);
+    }
+    await fetchProductsApi(accessToken, currentPage);
+  };
 
   return (
     <div className="overflow-x-auto bg-gray-900 text-white">
@@ -211,13 +226,13 @@ const Products = () => {
         <span className="border px-2 cursor-pointer rounded-tl-[5px] rounded-bl-[5px] py-1">
           previous
         </span>
-        <div
-          className={`border px-2 cursor-pointer py-1
-          }`}
+
+        {pageEl}
+
+        <span
+          className="border px-2 cursor-pointer rounded-tr-[5px] rounded-br-[5px] py-1"
+          onClick={nextPage}
         >
-          1
-        </div>
-        <span className="border px-2 cursor-pointer rounded-tr-[5px] rounded-br-[5px] py-1">
           Next
         </span>
       </div>

@@ -78,9 +78,9 @@ export const updateCategoryApi = async (accessToken, categoryId, body) => {
   }
 };
 
-export const fetchProductsApi = async (accessToken) => {
+export const fetchProductsApi = async (accessToken, currentPage) => {
   try {
-    const url = `https://api.freeapi.app/api/v1/ecommerce/products?page=1&limit=10`;
+    const url = `https://api.freeapi.app/api/v1/ecommerce/products?page=${currentPage}&limit=10`;
     return runApi(url, null, { method: "GET", token: accessToken });
   } catch (error) {
     throw error;

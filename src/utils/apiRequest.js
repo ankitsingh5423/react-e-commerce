@@ -1,6 +1,5 @@
 export const runApi = async (url, data, options) => {
   try {
-    console.log(data);
     const payload = {
       method: options?.method ?? "GET",
 

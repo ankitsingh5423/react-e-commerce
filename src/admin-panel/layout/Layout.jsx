@@ -7,7 +7,7 @@ const Layout = () => {
   const [isSidebarOpen, setIsSiebarOpen] = useState(false);
 
   return (
-    <>
+    <div className="admin-css">
       <Aside isSidebarOpen={isSidebarOpen} setIsSiebarOpen={setIsSiebarOpen} />
       <main
         className={`bg-amber-900 min-h-screen  ${
@@ -24,7 +24,7 @@ const Layout = () => {
           <Outlet />
         </div>
       </main>
-    </>
+    </div>
   );
 };
 
