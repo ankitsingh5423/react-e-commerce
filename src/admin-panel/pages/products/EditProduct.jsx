@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { addProductApi } from "../../services/authService";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import { useAuth } from "../../../context/AuthContext";
+import {
+  getProductDetailsApi,
+  UpdateProductApi,
+} from "../../services/authService";
 import { toast } from "react-toastify";
-import { NavLink, useNavigate } from "react-router";
 
-const AddProduct = () => {
+const EditProduct = () => {
   const [productName, setProductName] = useState("");
   const [productCategory, setProductCategory] = useState("");
   const [price, setPrice] = useState("");
@@ -14,6 +17,7 @@ const AddProduct = () => {
   const [subImages, setSubimages] = useState(undefined);
   const { accessToken } = useAuth();
   const navigate = useNavigate();
+  const { productId } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,19 +38,34 @@ const AddProduct = () => {
         });
       }
 
-      const data = await addProductApi(accessToken, formdata);
+      const data = await UpdateProductApi(accessToken, formdata, productId);
       console.log(data);
       if (data.statusCode == 201) {
         console.log(data);
 
         navigate("/products");
-        toast.success(data?.message ?? "product add successfully");
+        toast.success(data?.message ?? "product update successfully");
       }
     } catch (error) {
       toast.error(error.message ?? "somthing went wrong");
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const productDetails = async () => {
+      console.log("productId...", { productId });
+      const data = await getProductDetailsApi(accessToken, productId);
+      console.log(data);
+      setProductName(data.data.name);
+      setProductCategory(data.data.category);
+      setPrice(data.data.price);
+      setStock(data.data.stock);
+      setDescription(data.data.description);
+    };
+    productDetails();
+  }, []);
+
   return (
     <div className="bg-black h-lvh pt-3">
       <div className="border bg-gray-800 lg:w-[600px] m-3 lg:m-auto p-4 rounded-[10px]">
@@ -183,4 +202,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

@@ -39,7 +39,9 @@ const EditCategory = () => {
       <div className="border bg-gray-800 w-[400px] m-auto p-4 rounded-[10px]">
         <h1 className="text-3xl mb-5 capitalize text-white">update Category</h1>
         <form action="" onSubmit={handleSubmit}>
-          <p className="text-[18px] text-white mb-2 capitalize">category Name</p>
+          <p className="text-[18px] text-white mb-2 capitalize">
+            category Name
+          </p>
           <input
             type="text"
             className="border-1 border-gray-400 py-1 pl-1 rounded-[5px] w-full text-white"

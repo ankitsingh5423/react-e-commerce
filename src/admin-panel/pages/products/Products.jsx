@@ -12,6 +12,24 @@ const Products = () => {
   const [totalPages, setTotalPages] = useState();
   const [loading, setLoading] = useState(false);
 
+  const handleDelete = async (productId) => {
+    try {
+      const data = await deleteProductApi(accessToken, productId);
+      console.log(data);
+
+      if (data.success === true) {
+        toast.success("product delete sucessful");
+        const data = await fetchProductsApi(accessToken, currentPage);
+        console.log(data);
+        setProducts(data.data.products);
+        setTotalPages(data.data.totalPages);
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -19,7 +37,6 @@ const Products = () => {
         const data = await fetchProductsApi(accessToken, currentPage);
         setProducts(data.data.products);
         setTotalPages(data.data.totalPages);
-        console.log(currentPage);
       } catch (error) {
         console.log(error.message);
       } finally {
@@ -29,29 +46,34 @@ const Products = () => {
     fetchProducts();
   }, [currentPage]);
 
-  const handleDelete = async (productId) => {
-    try {
-      const data = await deleteProductApi(accessToken, productId);
-
-      if (data.success) {
-        toast.success("product delete sucessful");
-        const data = await fetchProductsApi(accessToken);
-        setProducts(data.data.products);
-      }
-    } catch (error) {
-      toast.error(error.message);
-      console.log(error.message);
-    }
-  };
   const pageEl = [];
 
   for (let i = 1; i <= totalPages; i++) {
-    pageEl.push(<div className={`border px-2 cursor-pointer py-1 `}>{i}</div>);
+    pageEl.push(
+      <div
+        className={`border px-2 cursor-pointer py-1 ${
+          i === currentPage ? "bg-amber-400" : ""
+        }`}
+        key={i}
+        onClick={(e) => {
+          setCurrentPage(i);
+        }}
+      >
+        {i}
+      </div>
+    );
   }
 
   const nextPage = async () => {
     if (totalPages !== currentPage) {
       setCurrentPage(currentPage + 1);
+    }
+    await fetchProductsApi(accessToken, currentPage);
+  };
+
+  const prevPage = async () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
     }
     await fetchProductsApi(accessToken, currentPage);
   };
@@ -183,7 +205,7 @@ const Products = () => {
                     <circle cx="12" cy="12" r="3" />
                   </svg>
                 </NavLink>
-                <NavLink to={`/edit-product`}>
+                <NavLink to={`/edit-product/${product._id}`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -223,7 +245,10 @@ const Products = () => {
         </tbody>
       </table>
       <div className="flex justify-end bg-gray-800 pr-5 gap-x-0 py-3">
-        <span className="border px-2 cursor-pointer rounded-tl-[5px] rounded-bl-[5px] py-1">
+        <span
+          className="border px-2 cursor-pointer rounded-tl-[5px] rounded-bl-[5px] py-1"
+          onClick={prevPage}
+        >
           previous
         </span>
 

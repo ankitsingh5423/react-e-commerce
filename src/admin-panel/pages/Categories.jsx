@@ -163,6 +163,9 @@ const Categories = () => {
               Categories
             </th>
             <th className="py-2 px-4" scope="col">
+              Id
+            </th>
+            <th className="py-2 px-4" scope="col">
               createdAt
             </th>
             <th className="py-2 px-4" scope="col">
@@ -180,6 +183,7 @@ const Categories = () => {
               key={category._id}
             >
               <td className="py-3 px-4">{category?.name ?? "--"}</td>
+              <td className="py-3 px-4">{category?._id ?? "--"}</td>
               <td className="py-3 px-4">{category?.createdAt ?? "--"}</td>
               <td className="py-3 px-4">{category?.updatedAt ?? "--"}</td>
               <td className="py-3 px-4 flex justify-center gap-3">

@@ -111,3 +111,24 @@ export const deleteProductApi = async (accessToken, productId, data) => {
     throw error;
   }
 };
+
+export const getProductDetailsApi = async (accessToken, productId, data) => {
+  const url = `https://api.freeapi.app/api/v1/ecommerce/products/${productId}`;
+  return runApi(url, data, { method: "GET", token: accessToken });
+};
+
+export const UpdateProductApi = async (accessToken, productId, body) => {
+  try {
+    const url = `https://api.freeapi.app/api/v1/ecommerce/products/${productId}`;
+    return runApi(url, body, {
+      method: "PATCH",
+      token: accessToken,
+      headers: {
+        type: "formData",
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
