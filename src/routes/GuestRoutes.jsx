@@ -11,7 +11,7 @@ const GuestRoutes = () => {
         Loading....
       </p>
     );
-  return <Outlet />;
+  return user ? <Navigate to="/" replace /> : <Outlet />;
 };
 
 export default GuestRoutes;

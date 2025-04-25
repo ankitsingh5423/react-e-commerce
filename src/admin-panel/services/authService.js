@@ -117,7 +117,7 @@ export const getProductDetailsApi = async (accessToken, productId, data) => {
   return runApi(url, data, { method: "GET", token: accessToken });
 };
 
-export const UpdateProductApi = async (accessToken, productId, body) => {
+export const UpdateProductApi = async (accessToken, body, productId) => {
   try {
     const url = `https://api.freeapi.app/api/v1/ecommerce/products/${productId}`;
     return runApi(url, body, {

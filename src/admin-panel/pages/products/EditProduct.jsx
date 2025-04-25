@@ -40,9 +40,7 @@ const EditProduct = () => {
 
       const data = await UpdateProductApi(accessToken, formdata, productId);
       console.log(data);
-      if (data.statusCode == 201) {
-        console.log(data);
-
+      if (data.statusCode == 200) {
         navigate("/products");
         toast.success(data?.message ?? "product update successfully");
       }
@@ -54,7 +52,6 @@ const EditProduct = () => {
 
   useEffect(() => {
     const productDetails = async () => {
-      console.log("productId...", { productId });
       const data = await getProductDetailsApi(accessToken, productId);
       console.log(data);
       setProductName(data.data.name);

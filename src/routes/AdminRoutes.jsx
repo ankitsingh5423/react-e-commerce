@@ -13,6 +13,7 @@ import Products from "../admin-panel/pages/products/Products";
 import AddProduct from "../admin-panel/pages/products/AddProduct";
 import Frontend from "../pages/Frontend";
 import EditProduct from "../admin-panel/pages/products/editProduct";
+import ViewProduct from "../admin-panel/pages/products/ViewProduct";
 
 const AdminRoutes = [
   <Route key="guestRoutes" element={<GuestRoutes />}>
@@ -29,6 +30,7 @@ const AdminRoutes = [
       <Route path="/products" element={<Products />} />
       <Route path="/add-product" element={<AddProduct />} />
       <Route path="/edit-product/:productId" element={<EditProduct />} />
+      <Route path="/view-product" element={<ViewProduct />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   </Route>,

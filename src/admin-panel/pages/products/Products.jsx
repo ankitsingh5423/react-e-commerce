@@ -188,7 +188,7 @@ const Products = () => {
               <td className="py-3 px-4">{product.createdAt}</td>
               <td className="py-3 px-4">{product.updatedAt}</td>
               <td className="py-3 px-4 flex justify-center gap-3">
-                <NavLink to={`/view-products`}>
+                <NavLink to={`/view-product`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
