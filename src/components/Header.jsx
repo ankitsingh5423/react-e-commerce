@@ -15,8 +15,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import logo from "../assets/logo.png";
 import Aside from "../components/Aside";
+import { NavLink } from "react-router";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -157,25 +157,44 @@ export default function Frontend() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }} className="sticky top-0 z-10">
+    <Box sx={{ flexGrow: 1 }} className="sticky top-0 z-10 ">
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className="bg-white">
           <Typography
             variant="h6"
+            color="#000"
             noWrap
             component="div"
-            className="w-[150px]"
+            className="w-[auto]"
             sx={{ display: { sm: "block" } }}
           >
-            <img src={logo} className="w-full h-full" alt="" />
+            <h1 className="lg:text-5xl md:text-5xl font-bold sm[max-width: 500px]: text-2xl">
+              E-commerce
+            </h1>
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
+          <Box sx={{ display: { xs: "none", md: "flex" } }} className="mr-4">
+            <ul className="flex justify-end text-[18px] font-semibold text-black items-center navbar-list">
+              <li>
+                <NavLink>Home</NavLink>
+              </li>
+              <li>
+                <NavLink>About</NavLink>
+              </li>
+              <li>
+                <NavLink>Shop</NavLink>
+              </li>
+              <li>
+                <NavLink>Pages</NavLink>
+              </li>
+              <li>
+                <NavLink>Blog</NavLink>
+              </li>
+              <li>
+                <NavLink>Contact</NavLink>
+              </li>
+            </ul>
+            <IconButton size="large" aria-label="show 4 new mails" color="#000">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
               </Badge>
@@ -183,7 +202,7 @@ export default function Frontend() {
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
-              color="inherit"
+              color="#000"
             >
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
@@ -196,7 +215,7 @@ export default function Frontend() {
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="inherit"
+              color="#000"
             >
               <AccountCircle />
             </IconButton>
@@ -208,7 +227,7 @@ export default function Frontend() {
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="inherit"
+              color="#000"
             >
               <MoreIcon />
             </IconButton>

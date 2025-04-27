@@ -52,7 +52,7 @@ const Aside = () => {
   return (
     <div>
       <Button onClick={toggleDrawer(true)}>
-        {<MenuIcon className="text-white" />}
+        {<MenuIcon className="text-black" />}
       </Button>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}
