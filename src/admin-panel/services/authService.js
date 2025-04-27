@@ -10,7 +10,7 @@ export const loginApi = async (username, password) => {
 };
 
 export const loggedInUserApi = async (accessToken) => {
-  const url = "https://api.freeapi.app/api/v1/ecommerce/profile";
+  const url = "https://api.freeapi.app/api/v1/users/current-user";
 
   try {
     return runApi(url, null, { method: "GET", token: accessToken });
@@ -129,6 +129,15 @@ export const UpdateProductApi = async (accessToken, body, productId) => {
     });
   } catch (error) {
     console.log(error);
+    throw error;
+  }
+};
+
+export const getOrderApi = (accessToken) => {
+  try {
+    const url = `https://api.freeapi.app/api/v1/ecommerce/orders/list/admin?status=PENDING&page=2&limit=10`;
+    return runApi(url, null, { method: "GET", token: accessToken });
+  } catch (error) {
     throw error;
   }
 };

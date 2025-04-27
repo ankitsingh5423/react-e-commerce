@@ -188,23 +188,6 @@ const Products = () => {
               <td className="py-3 px-4">{product.createdAt}</td>
               <td className="py-3 px-4">{product.updatedAt}</td>
               <td className="py-3 px-4 flex justify-center gap-3">
-                <NavLink to={`/view-product`}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-eye-icon lucide-eye border w-[45px] h-[35px] p-2 border-gray-400 rounded-[8px] cursor-pointer bg-gray-700"
-                  >
-                    <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                </NavLink>
                 <NavLink to={`/edit-product/${product._id}`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
