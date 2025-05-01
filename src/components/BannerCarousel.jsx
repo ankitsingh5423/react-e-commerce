@@ -40,7 +40,7 @@ const BannerCarousel = () => {
         <div>
           <img src={bannerFirst} alt="" className="w-full" />
           <div className="banner-text absolute top-0">
-            <h1 className="text-8xl font-bold">
+            <h1 className="xl:text-8xl font-bold lg:text-6xl md:text-5xl">
               Summer Style <br />
               Sensations.
             </h1>
@@ -54,10 +54,15 @@ const BannerCarousel = () => {
         <div className="relative">
           <img src={bannerSecond} alt="" className="w-full" />
           <div className="banner-text absolute top-0">
-            <h1 className="text-8xl font-bold">
-              Summer Style <br />
-              Sensations.
+            <h1 className="xl:text-8xl font-bold lg:text-6xl md:text-5xl sm:text-3xl">
+              Winter Style <br />
+              Delights.
             </h1>
+            <p className="mt-5 font-semibold">
+              Having plain clothing makes you look ordinary. We can assist you
+              <br />
+              in choosing the right dresses with Foesta.
+            </p>
           </div>
         </div>
       </Slider>
