@@ -1,13 +1,15 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Button from "@mui/material/Button";
 import bannerFirst from "../assets/banner/banner-1.jpg";
 import bannerSecond from "../assets/banner/banner-2.jpg";
 
+
 const BannerCarousel = () => {
   const settings = {
-    dots: true,
-    arrows: false,
+    dots: false,
+    arrows: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -38,8 +40,8 @@ const BannerCarousel = () => {
     <div className="overflow-hidden">
       <Slider {...settings}>
         <div>
-          <img src={bannerFirst} alt="" className="w-full" />
-          <div className="banner-text absolute top-0">
+          <img src={bannerFirst} alt="" className="w-full select-none" />
+          <div className="banner-text absolute top-0 flex flex-col justify-center h-full max-md:hidden">
             <h1 className="xl:text-8xl font-bold lg:text-6xl md:text-5xl">
               Summer Style <br />
               Sensations.
@@ -49,12 +51,26 @@ const BannerCarousel = () => {
               <br />
               in choosing the right dresses with Foesta.
             </p>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "white",
+                width: "200px",
+                border: "1px solid gray",
+                color: "black",
+                padding: "15px",
+                borderRadius: "50px",
+                marginTop: "3rem",
+              }}
+            >
+              Shop Now
+            </Button>
           </div>
         </div>
         <div className="relative">
-          <img src={bannerSecond} alt="" className="w-full" />
-          <div className="banner-text absolute top-0">
-            <h1 className="xl:text-8xl font-bold lg:text-6xl md:text-5xl sm:text-3xl">
+          <img src={bannerSecond} alt="" className="w-full select-none" />
+          <div className="banner-text absolute top-0 flex flex-col justify-center h-full max-md:hidden">
+            <h1 className="xl:text-8xl font-bold lg:text-6xl md:text-5xl">
               Winter Style <br />
               Delights.
             </h1>
@@ -63,6 +79,20 @@ const BannerCarousel = () => {
               <br />
               in choosing the right dresses with Foesta.
             </p>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "white",
+                width: "200px",
+                border: "1px solid gray",
+                color: "black",
+                padding: "15px",
+                borderRadius: "50px",
+                marginTop: "3rem",
+              }}
+            >
+              Shop Now
+            </Button>
           </div>
         </div>
       </Slider>
