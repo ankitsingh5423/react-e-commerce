@@ -34,7 +34,7 @@ const Categories = () => {
       <Slider {...settings}>
         {categories.map((category) => (
           <div className="px-3" key={category.id}>
-            <div className="border-2 relative rounded-[20px] overflow-hidden">
+            <div className=" relative rounded-[20px] overflow-hidden">
               <img
                 src={category.image}
                 alt={category.name}
