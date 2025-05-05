@@ -21,7 +21,11 @@ const OfferBoxes = () => {
               sx={{
                 backgroundColor: "white",
                 width: "auto",
-                border: "1px solid gray",
+                ":hover": {
+                  backgroundColor: "black",
+                  color: "white",
+                },
+                transition: "0.3s ease",
                 color: "black",
                 padding: "10px 30px",
                 borderRadius: "50px",
@@ -47,7 +51,11 @@ const OfferBoxes = () => {
               sx={{
                 backgroundColor: "white",
                 width: "auto",
-                border: "1px solid gray",
+                ":hover": {
+                  backgroundColor: "black",
+                  color: "white",
+                },
+                transition: "0.3s ease",
                 color: "black",
                 padding: "10px 30px",
                 borderRadius: "50px",

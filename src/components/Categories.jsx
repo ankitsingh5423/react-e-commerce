@@ -2,12 +2,11 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { categories } from "../services/categories";
 import Button from "@mui/material/Button";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import category3 from "../assets/categories/category-3.webp";
 
-
-const Categories = () => {
+const Categories = ({ categories }) => {
   const NextArrow = ({ onClick }) => {
     return (
       <div
@@ -61,7 +60,7 @@ const Categories = () => {
           <div className="px-3" key={category.id}>
             <div className=" relative rounded-[20px] overflow-hidden">
               <img
-                src={category.image}
+                src={category3}
                 alt={category.name}
                 className="w-full h-full object-cover"
               />
@@ -74,7 +73,11 @@ const Categories = () => {
                   sx={{
                     backgroundColor: "white",
                     width: "120px",
-                    border: "1px solid gray",
+                    ":hover": {
+                      backgroundColor: "black",
+                      color: "white",
+                    },
+                    transition: "0.3s ease",
                     color: "black",
                     padding: "10px",
                     borderRadius: "50px",
