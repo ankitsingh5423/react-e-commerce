@@ -30,8 +30,10 @@ const Login = () => {
       }
 
       login(data?.data?.accessToken, data?.data?.refreshToken);
+      console.log(data.data.user.role);
       localStorage.setItem("isAuth", true);
-      navigate("/");
+      localStorage.setItem("role", data.data.user.role);
+      navigate("/dashboard");
       toast.success("login successful");
     } catch (error) {
       toast.error(error.message);
@@ -170,7 +172,13 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="grid-cols-1 sm:col-span-2 text-end">
+            <div className="grid-cols-1 flex justify-between sm:col-span-2 text-end">
+              <NavLink
+                to="/registration"
+                className="text-blue-900 hover:text-blue-700"
+              >
+                SignUp
+              </NavLink>
               <NavLink
                 to="/reset-password"
                 className="text-blue-900 hover:text-blue-700"

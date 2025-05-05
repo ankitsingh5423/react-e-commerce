@@ -23,7 +23,7 @@ const ProtectedRoutes = () => {
       </div>
     );
 
-  return isLoggedIn ? <Outlet /> : <Navigate to="/login" replace />;
+  return isLoggedIn ? <Outlet /> : <Navigate to="/" replace />;
 };
 
 export default ProtectedRoutes;

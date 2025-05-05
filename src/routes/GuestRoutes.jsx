@@ -3,7 +3,8 @@ import { useAuth } from "../context/AuthContext";
 
 const GuestRoutes = () => {
   const { loading } = useAuth();
-  const user = localStorage.getItem("isAuth");
+  const userdetail = localStorage.getItem("isAuth");
+  const role = localStorage.getItem("role")
 
   if (loading)
     return (
@@ -11,7 +12,7 @@ const GuestRoutes = () => {
         Loading....
       </p>
     );
-  return user ? <Navigate to="/" replace /> : <Outlet />;
+  return role === "USER" ? <Navigate to="/" replace /> : <Outlet />;
 };
 
 export default GuestRoutes;

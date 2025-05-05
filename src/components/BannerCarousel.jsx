@@ -4,16 +4,40 @@ import "slick-carousel/slick/slick-theme.css";
 import Button from "@mui/material/Button";
 import bannerFirst from "../assets/banner/banner-1.jpg";
 import bannerSecond from "../assets/banner/banner-2.jpg";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 
 
 const BannerCarousel = () => {
+  const NextArrow = ({ onClick }) => {
+    return (
+      <div
+        onClick={onClick}
+        className="absolute right-[20px] top-[50%] transform -translate-y-1/2 z-100 cursor-pointer p-2 bg-white shadow rounded-full"
+      >
+        <ArrowForwardIos />
+      </div>
+    );
+  };
+
+  const PrevArrow = ({ onClick }) => {
+    return (
+      <div
+        onClick={onClick}
+        className="absolute left-[20px] top-[50%] transform -translate-y-1/2 z-100 cursor-pointer p-2 bg-white shadow rounded-full"
+      >
+        <ArrowBackIos />
+      </div>
+    );
+  };
+
   const settings = {
     dots: false,
-    arrows: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     responsive: [
       {
         breakpoint: 1000,

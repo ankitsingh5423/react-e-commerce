@@ -11,7 +11,6 @@ import GuestRoutes from "./GuestRoutes";
 import EditCategory from "../admin-panel/pages/EditCategory";
 import Products from "../admin-panel/pages/products/Products";
 import AddProduct from "../admin-panel/pages/products/AddProduct";
-import Frontend from "../pages/Frontend";
 import EditProduct from "../admin-panel/pages/products/editProduct";
 import Orders from "../admin-panel/pages/orders/Orders";
 
@@ -23,7 +22,7 @@ const AdminRoutes = [
 
   <Route key="protectedRoutes" element={<ProtectedRoutes />}>
     <Route key="layout" element={<Layout />}>
-      <Route index element={<Dashboard />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/categories" element={<Categories />} />
       <Route path="/add-category" element={<AddCategory />} />
       <Route path="/edit-category/:categoryId" element={<EditCategory />} />
@@ -31,10 +30,8 @@ const AdminRoutes = [
       <Route path="/add-product" element={<AddProduct />} />
       <Route path="/edit-product/:productId" element={<EditProduct />} />
       <Route path="/orders/" element={<Orders />} />
-      <Route path="*" element={<NotFound />} />
     </Route>
   </Route>,
-  <Route path="/frontend/" element={<Frontend />} />,
 ];
 
 export default AdminRoutes;

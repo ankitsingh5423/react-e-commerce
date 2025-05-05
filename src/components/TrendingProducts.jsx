@@ -10,15 +10,39 @@ import productSecondHover from "../assets/trending-products/product-hover-2.webp
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ChangeCircleOutlinedIcon from "@mui/icons-material/ChangeCircleOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 
 const TrendingProducts = () => {
+  const NextArrow = ({ onClick }) => {
+    return (
+      <div
+        onClick={onClick}
+        className="absolute right-[20px] top-[50%] transform -translate-y-1/2 z-100 cursor-pointer p-2 bg-white shadow rounded-full"
+      >
+        <ArrowForwardIos />
+      </div>
+    );
+  };
+
+  const PrevArrow = ({ onClick }) => {
+    return (
+      <div
+        onClick={onClick}
+        className="absolute left-[20px] top-[50%] transform -translate-y-1/2 z-100 cursor-pointer p-2 bg-white shadow rounded-full"
+      >
+        <ArrowBackIos />
+      </div>
+    );
+  };
+
   const settings = {
     dots: false,
-    arrows: true,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     responsive: [
       {
         breakpoint: 1000,
@@ -133,7 +157,7 @@ const TrendingProducts = () => {
             </p>
           </div>
         </div>
-        
+
         <div className="px-3">
           <div className="relative rounded-[20px] overflow-hidden cursor-pointer group">
             <img

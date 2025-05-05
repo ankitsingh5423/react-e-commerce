@@ -8,6 +8,7 @@ import OfferBoxes from "./OfferBoxes";
 import CustomerReviews from "./CustomerReviews";
 import FeaturedCollection from "./FeaturedCollection";
 import Blogs from "./Blogs";
+import Footer from "./Footer";
 
 const MainPage = () => {
   return (

@@ -59,7 +59,7 @@ const CustomerReviews = () => {
     ],
   };
   return (
-    <div className="px-2 bg-purple-50 py-24">
+    <div className="px-2 bg-purple-50 pt-20 pb-30">
       <div className="pb-15 text-center">
         <h1 className="text-4xl font-semibold mb-4 capitalize">
           Customers Review

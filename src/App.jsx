@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import AdminRoutes from "./routes/AdminRoutes";
 import { AuthProvider } from "./context/AuthContext";
-import Frontend from "./pages/Frontend";
+import UserRoutes from "./routes/UserRoutes";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -9,7 +10,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           {AdminRoutes}
-          <Route path="/frontend" element={<Frontend />}></Route>
+          {UserRoutes}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

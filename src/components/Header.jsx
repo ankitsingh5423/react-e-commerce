@@ -16,7 +16,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Aside from "../components/Aside";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,7 +58,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Frontend() {
+export default function Header() {
+  const navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -75,7 +77,7 @@ export default function Frontend() {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
+    navigate("/login")
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -101,6 +103,7 @@ export default function Frontend() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Login</MenuItem>
     </Menu>
   );
 
@@ -168,7 +171,7 @@ export default function Frontend() {
             className="w-[auto]"
             sx={{ display: { sm: "block" } }}
           >
-            <h1 className="lg:text-5xl md:text-5xl font-bold sm[max-width: 500px]: text-2xl">
+            <h1 className="text-5xl max-xl:text-5xl max-lg:text-4xl max-md:text-3xl max-sm:text-2xl font-bold ">
               E-commerce
             </h1>
           </Typography>
