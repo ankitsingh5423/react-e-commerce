@@ -1,31 +1,34 @@
-import * as React from "react";
-import Typography from "@mui/material/Typography";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Link from "@mui/material/Link";
+import React from "react";
+import { Link } from "react-router-dom"; // optional if using React Router
+import { ChevronRight } from "lucide-react"; // or use an SVG directly
 
-function handleClick(event) {
-  event.preventDefault();
-  console.info("You clicked a breadcrumb.");
-}
-
-const BreadCrumb = () => {
+const Breadcrumb = ({ items }) => {
   return (
-    <div role="presentation" onClick={handleClick}>
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link underline="hover" color="inherit" href="/">
-          MUI
-        </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          href="/material-ui/getting-started/installation/"
-        >
-          Core
-        </Link>
-        <Typography sx={{ color: "text.primary" }}>Breadcrumbs</Typography>
-      </Breadcrumbs>
-    </div>
+    <nav className="text-sm text-gray-600" aria-label="Breadcrumb">
+      <ol className="flex items-center space-x-1 md:space-x-2">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li key={index} className="flex items-center text-[18px]">
+              {index > 0 && (
+                <ChevronRight className="w-4 h-4 mx-1 text-gray-400" />
+              )}
+              {isLast ? (
+                <span className="font-medium text-gray-800">{item.label}</span>
+              ) : (
+                <Link
+                  to={item.href}
+                  className="hover:underline text-blue-600 hover:text-blue-800"
+                >
+                  {item.label}
+                </Link>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
   );
 };
 
-export default breadCrumb;
+export default Breadcrumb;
