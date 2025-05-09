@@ -11,6 +11,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ChangeCircleOutlinedIcon from "@mui/icons-material/ChangeCircleOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import { NavLink } from "react-router";
 
 const TrendingProducts = ({ products }) => {
   const NextArrow = ({ onClick }) => {
@@ -78,22 +79,24 @@ const TrendingProducts = ({ products }) => {
         {products.map((product) => (
           <div className="px-3 group">
             <div className="relative rounded-[20px] overflow-hidden cursor-pointer">
-              <img
-                src={productFirstHover}
-                alt="product"
-                className="w-full h-full object-cover group-hover:opacity-0 opacity-100 transition-opacity duration-500"
-              />
-              <img
-                src={product.subImages[0].url}
-                alt="product"
-                className="w-full h-full object-cover absolute top-0 productFristHover opacity-0 group-hover:opacity-100 ransition-opacity duration-500"
-              />
-              <div className="absolute top-[15px] w-full pl-4 opacity-100 ">
+              <NavLink to={"/product-detail"}>
+                <img
+                  src={productFirstHover}
+                  alt="product"
+                  className="w-full h-full object-cover group-hover:opacity-0 opacity-100 transition-opacity duration-500"
+                />
+                <img
+                  src={product.subImages[0].url}
+                  alt="product"
+                  className="w-full h-full object-cover absolute top-0 productFristHover opacity-0 group-hover:opacity-100 ransition-opacity duration-500"
+                />
+              </NavLink>
+              <div className="absolute top-[15px] left-0 pl-4 opacity-100 ">
                 <p className=" max-w-max px-3 rounded-[10px] bg-red-700 text-white">
                   20% sale
                 </p>
               </div>
-              <div className="absolute top-[15px] w-full text-end pr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex flex-col gap-y-2">
+              <div className="absolute top-[15px] text-end pr-4 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex flex-col gap-y-2">
                 <div>
                   <VisibilityOutlinedIcon
                     sx={{
