@@ -1,4 +1,10 @@
 @import "tailwindcss";
+@plugin "daisyui";
+
+body{
+  background: #fff;
+  color: #000;
+}
 
 .navbar-list li a {
   display: inline-block;

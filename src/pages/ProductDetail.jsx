@@ -2,6 +2,7 @@ import React from "react";
 import testImage from "../assets/trending-products/product-1.webp";
 import BreadCrumb from "../components/basicComp/BreadCrumb";
 import QuantitySelector from "../components/basicComp/QuantitySelector";
+import Button from "@mui/material/Button";
 
 const ProductDetail = () => {
   return (
@@ -42,16 +43,47 @@ const ProductDetail = () => {
           <p className="my-4">
             <strong>Seller</strong>: name of seller
           </p>
-          <div className="grid grid-cols-2 border border-red-500">
+          <div className="grid grid-cols-2 max-sm:grid-cols-1 max-sm:gap-y-5 items-center w-[300px] max-w-full">
             <p className="absolute top-0">Quantity</p>
-            <div className="">
-              <QuantitySelector
-                min={1}
-                max={10}
-                // onChange={(value) => console.log("Quantity:", value)}
-              />
+            <div className="w-max">
+              <QuantitySelector min={1} max={10} />
             </div>
-            <div></div>
+            <div className="w-max">
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "white",
+                  width: "max-content",
+                  border: "1px solid black",
+                  height: "50px",
+                  transition: "0.3s ease",
+                  color: "black",
+                  padding: "10px 30px",
+                  borderRadius: "50px",
+                  textTransform: "capitalize",
+                }}
+              >
+                + add to cart
+              </Button>
+            </div>
+          </div>
+          <div className="w-max py-5">
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "black",
+                width: "300px",
+                border: "1px solid black",
+                height: "50px",
+                transition: "0.3s ease",
+                color: "white",
+                padding: "10px 30px",
+                borderRadius: "50px",
+                textTransform: "capitalize",
+              }}
+            >
+              + add to cart
+            </Button>
           </div>
         </div>
       </div>

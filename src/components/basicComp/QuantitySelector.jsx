@@ -14,7 +14,7 @@ const QuantitySelector = ({ min = 1, max = 99, onChange }) => {
     <div className="flex items-center space-x-2 border-2 overflow-hidden w-max rounded-[44px] h-[50px]">
       <button
         onClick={() => updateQuantity(quantity - 1)}
-        className="px-3 py-1 text-gray-700 rounded"
+        className="px-3 py-1 text-gray-700 rounded cursor-pointer"
         disabled={quantity === min}
       >
         −
@@ -22,7 +22,7 @@ const QuantitySelector = ({ min = 1, max = 99, onChange }) => {
       <span className="px-4 py-1 text-lg">{quantity}</span>
       <button
         onClick={() => updateQuantity(quantity + 1)}
-        className="px-3 py-1 text-gray-700 rounded"
+        className="px-3 py-1 text-gray-700 rounded cursor-pointer"
         disabled={quantity === max}
       >
         +
