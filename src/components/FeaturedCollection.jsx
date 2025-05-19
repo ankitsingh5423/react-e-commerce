@@ -20,7 +20,7 @@ const FeaturedCollection = ({ products }) => {
       </div>
       <div className="grid grid-cols-4 gap-y-7">
         {products.map((product) => (
-          <div className="px-3 group">
+          <div className="px-3 group" key={product._id}>
             <div className="relative rounded-[20px] overflow-hidden cursor-pointer">
               <img
                 src={productFirst}

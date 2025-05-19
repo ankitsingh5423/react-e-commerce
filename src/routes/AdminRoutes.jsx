@@ -32,6 +32,7 @@ const AdminRoutes = [
       <Route path="/orders/" element={<Orders />} />
     </Route>
   </Route>,
+
 ];
 
 export default AdminRoutes;
